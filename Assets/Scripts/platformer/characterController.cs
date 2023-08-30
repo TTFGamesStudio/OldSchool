@@ -7,23 +7,23 @@ public class character_Controller : MonoBehaviour
     [SerializeField] private CharacterController _controller;
 
     [SerializeField] private Vector2 _input;
-
     [SerializeField] private float moveSpeed;
-
     [SerializeField] private Animator anim;
-
     [SerializeField] private Rigidbody rb;
-
     [SerializeField] private float jumpForce;
-
     [SerializeField] private float gravity;
-
     [SerializeField] private Vector3 velocity;
+    [SerializeField] private characterSoundPlayer _soundPlayer;
+    [SerializeField] private bool onGround;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private float groundCheckDistance = 1f;
+    [SerializeField] private Transform spawnPoint;
     
     // Start is called before the first frame update
     void Start()
     {
         _controller = GetComponent<CharacterController>();
+        _soundPlayer = GetComponent<characterSoundPlayer>();
         anim = GetComponent<Animator>();
     }
 
@@ -35,6 +35,7 @@ public class character_Controller : MonoBehaviour
         _controller.Move(velocity);
         updateAnimations();
         characterFacing();
+        groundCheck();
     }
 
     void updateInput()
@@ -54,9 +55,10 @@ public class character_Controller : MonoBehaviour
 
     void jump()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) && onGround)
         {
             velocity.y = jumpForce;
+            _soundPlayer.playJump();
         }
     }
 
@@ -84,6 +86,23 @@ public class character_Controller : MonoBehaviour
         else
         {
             anim.SetBool("run",false);
+        }
+    }
+
+    //check if the player is touching the ground
+    void groundCheck()
+    {
+        if(Physics.Raycast(transform.position, -transform.up, groundCheckDistance,groundMask))
+        {
+            if(!onGround)
+            {
+                _soundPlayer.playImpact();
+            }
+            onGround = true;
+        }
+        else
+        {
+            onGround = false;
         }
     }
 }

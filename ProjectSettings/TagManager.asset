@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Folder
+  - coin
+  - Spike
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - player
   - world
   - items
-  - 
+  - coin
   - 
   - 
   - 
