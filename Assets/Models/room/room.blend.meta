@@ -12,6 +12,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: DeskLegs
+    second: {fileID: 2100000, guid: e761e39d79a017d488309f4ff0409477, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: DeskSurface
     second: {fileID: 2100000, guid: f9d4d988770896e4b83cb00274c6eada, type: 2}
   - first:

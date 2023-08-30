@@ -34,6 +34,7 @@ public class character_Controller : MonoBehaviour
         updateVelocity();
         _controller.Move(velocity);
         updateAnimations();
+        characterFacing();
     }
 
     void updateInput()
@@ -48,8 +49,32 @@ public class character_Controller : MonoBehaviour
         velocity.z = (moveSpeed * _input.x * Time.deltaTime) * -1f;
         velocity.y += Time.deltaTime * gravity;
         velocity.x = 0;
+        jump();
     }
 
+    void jump()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            velocity.y = jumpForce;
+        }
+    }
+
+    void characterFacing()
+    {
+        if(_input.x !=0)
+        {
+            if (_input.x < 0)
+            {
+                transform.localScale = new Vector3(1, 1, -1);
+            }
+            else
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+        }
+    }
+    
     void updateAnimations()
     {
         if (_input.x > 0.1f || _input.x < -0.1f)
